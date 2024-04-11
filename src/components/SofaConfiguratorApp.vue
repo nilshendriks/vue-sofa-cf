@@ -384,7 +384,7 @@ export default {
 
       // Assuming your selectedPallet has an 'image' property
       const palletImage = selectedPallet.image;
-      return `/images/sofa-cf/${palletImage}`;
+      return `./images/sofa-cf/${palletImage}`;
     },
     mattressImageSource() {
       const { selectedMattress } = this;
@@ -394,7 +394,7 @@ export default {
       }
 
       const mattressImage = selectedMattress.image;
-      return `/images/sofa-cf/${mattressImage}`;
+      return `./images/sofa-cf/${mattressImage}`;
     },
     pillowImageSource() {
       const { selectedPillow } = this;
@@ -404,7 +404,7 @@ export default {
       }
 
       const pillowImage = selectedPillow.image;
-      return `/images/sofa-cf/${pillowImage}`;
+      return `./images/sofa-cf/${pillowImage}`;
     },
   },
   methods: {
