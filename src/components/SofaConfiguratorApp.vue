@@ -19,7 +19,14 @@
     </div>
     <div class="sca__preview">
       <div class="sca__image-container">
-        <VueImgTest />
+        <!-- <VueImgTest /> -->
+        <img
+          src="/images/sofa-cf/sofa_base-trans.png"
+          alt="sofa base"
+          class="sca__preview-image"
+          width="1072"
+          height="712"
+        />
         <img
           v-if="selectedPallet && selectedPallet.class !== 'none'"
           :src="imageSource"
@@ -67,14 +74,14 @@
           id="btn-print"
           title="click to Print"
           v-if="!fullscreen"
-          class="button sca__button"
+          class="xbutton sca__button"
           @click="printConfig"
         >
           <Printer24 />
         </button>
         <button
           title="click to see fullscreen"
-          class="button"
+          class="xbutton"
           v-if="!fullscreen"
           @click="toggleFullscreen"
         >
@@ -82,7 +89,7 @@
         </button>
         <button
           title="click to exit fullscreen"
-          class="button"
+          class="xbutton"
           v-if="fullscreen"
           @click="exitFullscreen"
         >
@@ -134,7 +141,7 @@
 </template>
 
 <script>
-import VueImgTest from "./VueImgTest.vue";
+// import VueImgTest from "./VueImgTest.vue";
 import { Printer24 } from "@carbon/icons-vue";
 import { FitToScreen24 } from "@carbon/icons-vue";
 import { ShrinkScreen24 } from "@carbon/icons-vue";
@@ -142,7 +149,7 @@ import Part from "./Part.vue";
 
 export default {
   components: {
-    VueImgTest,
+    //VueImgTest,
     Part,
     Printer24,
     FitToScreen24,
@@ -275,10 +282,10 @@ export default {
         },
         {
           id: 2,
-          value: "Blue",
-          class: "blue",
-          hexCode: "#0000ff",
-          shortName: "Blue",
+          value: "Giverny",
+          class: "giverny",
+          hexCode: "#0088d5",
+          shortName: "giverny",
           longName: "Blue Mattress",
           image: "mattress-blue.png",
         },
@@ -286,7 +293,7 @@ export default {
           id: 3,
           value: "Green",
           class: "green",
-          hexCode: "#00ff00",
+          hexCode: "#5bb842",
           shortName: "Green",
           longName: "Green Mattress",
           image: "mattress-green.png",
@@ -313,7 +320,7 @@ export default {
           id: 6,
           value: "Red",
           class: "red",
-          hexCode: "#ff0000",
+          hexCode: "#bd3641",
           shortName: "Red",
           longName: "Red Mattress",
           image: "mattress-red.png",
@@ -341,7 +348,7 @@ export default {
           id: 2,
           value: "Blue",
           class: "blue",
-          hexCode: "#0000ff",
+          hexCode: "#0088d5",
           shortName: "Blue",
           longName: "Blue Pillows",
           image: "pillows-blue.png",
@@ -359,7 +366,7 @@ export default {
           id: 4,
           value: "Green",
           class: "green",
-          hexCode: "#00ff00",
+          hexCode: "#5bb842",
           shortName: "Green",
           longName: "Green Pillows",
           image: "pillows-green.png",
@@ -386,7 +393,7 @@ export default {
           id: 7,
           value: "Red",
           class: "red",
-          hexCode: "#ff0000",
+          hexCode: "#bd3641",
           shortName: "Red",
           longName: "Red Pillows",
           image: "pillows-red.png",
@@ -553,6 +560,8 @@ export default {
 }
 
 #sofa-configurator-app {
+  background-color: var(--color-background);
+  color: var(--color-text);
   display: grid;
   /* grid-template-rows: 10svh 50svh 20svh; */
   grid-template-rows: auto 1fr auto;
@@ -572,6 +581,9 @@ export default {
   gap: 8px;
   flex-wrap: wrap;
   height: min-content;
+  border-bottom: 1px solid var(--color-border-dark);
+  margin: 0 -16px;
+  padding: 0 16px 1em;
 }
 
 @media only screen and (min-width: 768px) {
@@ -592,7 +604,8 @@ export default {
 }
 
 .sca__selected dt {
-  display: none;
+  /* display: none; */
+  font-weight: 700;
 }
 
 .sca__selected dt,
@@ -613,7 +626,7 @@ export default {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* gap: 32px; */
+  gap: 8px;
   width: 100%;
   /* justify-content: flex-end; */
 }
@@ -646,14 +659,6 @@ export default {
   display: flex;
   gap: 1rem;
 }
-
-@media only screen and (min-width: 768px) {
-  .sca__controls-options {
-    /* padding: 1.5rem 2rem; */
-  }
-}
-
-@media only screen and (max-width: 767px) {}
 
 #sofa-configurator-app:fullscreen .sca__controls-options {
   top: 2rem;

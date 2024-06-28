@@ -1,16 +1,17 @@
 <template>
   <div class="part__options">
+    <!-- <div id="mypopover" popover>Popover content</div> -->
     <div
       class="part__option"
-      @click="handlePartSelection(part)"
       v-for="part in parts"
       :key="part.value"
     >
-      <span
-        :title="part.longName"
-        :class="['part__swatch', part.class, { 'selected': isSelected(part) }]"
-        :style="{ backgroundColor: part.hexCode }"
-      ></span>
+      <button
+      :class="['part__swatch', part.class, { 'selected': isSelected(part) }]"
+      :style="{ backgroundColor: part.hexCode }"
+      @click="handlePartSelection(part)"
+      :title="part.longName"
+    >{{ part.shortName }}</button>
       <p class="part__swatch-label">{{ part.shortName }}</p>
     </div>
   </div>
@@ -42,28 +43,36 @@ export default {
 
 <style scoped>
 .part__swatch {
-  display: flex;
+  /* display: flex; */
   width: 44px;
   height: 44px;
   border-radius: 100%;
+  aspect-ratio: 1/1;
+  /* text-indent: -9999em; */
+  font-size: 0;
+  border: 1px solid transparent;
+  outline-offset: 4px;
+  /* outline: 2px solid #ff0000;
+   */
 }
 
 .part__swatch.selected {
-  outline: 1px solid #e8e8e8;
+  outline: 2px solid #ccc;
   outline-offset: 4px;
 }
 
 .part__swatch-label {
-  visibility: hidden;
+  /* visibility: hidden; */
   font-family: var(--font-family-system, sans-serif);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 400;
   margin: 0;
   text-align: center;
 }
 
 .part__swatch.selected + .part__swatch-label {
-  visibility: visible;
+  /* visibility: visible; */
+  font-weight: 700;
 }
 
 .part__options {
@@ -72,16 +81,27 @@ export default {
   align-items: flex-start;
   inline-size: fit-content;
   margin: 0 auto;
+  gap: 1em;
+  padding: 1em 0;
 }
 
 .part__option {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   width: 85px;
   flex-shrink: 0;
-  padding-block: 1em;
+  padding-block: 1em; */
+
+  /* aspect-ratio: 1/1;
+  text-indent: -9999em;
+  border: 1px solid transparent; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
 }
 
 </style>
