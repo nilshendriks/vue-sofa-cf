@@ -1,5 +1,8 @@
 <template>
-  <div id="sofa-configurator-app" v-cloak>
+  <div
+    id="sofa-configurator-app"
+    v-cloak
+  >
     <div class="sca__selected">
       <dl>
         <dt>Selected Pallet</dt>
@@ -46,11 +49,18 @@
     <div class="sca__controls">
       <!-- Slider Controls -->
       <div class="sca__controls__bar">
-        <button class="button" @click="prevStep" :disabled="currentStep === 0">Back</button>
-        <span
-          ><strong>{{ currentStepName }}</strong> {{ currentStep + 1 }}/{{ steps.length }}</span
-        >
-        <button class="button" @click="nextStep" :disabled="currentStep === steps.length - 1">Next</button>
+        <button
+          class="button"
+          @click="prevStep"
+          :disabled="currentStep === 0"
+        >Back</button>
+        <span><strong>{{ currentStepName }}</strong> {{
+          currentStep + 1 }}/{{ steps.length }}</span>
+        <button
+          class="button"
+          @click="nextStep"
+          :disabled="currentStep === steps.length - 1"
+        >Next</button>
       </div>
       <div class="sca__controls-options">
         <button
@@ -60,19 +70,35 @@
           class="button sca__button"
           @click="printConfig"
         >
-          <Printer24/>
+          <Printer24 />
         </button>
-        <button title="click to see fullscreen" class="button" v-if="!fullscreen" @click="toggleFullscreen">
+        <button
+          title="click to see fullscreen"
+          class="button"
+          v-if="!fullscreen"
+          @click="toggleFullscreen"
+        >
           <FitToScreen24 />
         </button>
-        <button title="click to exit fullscreen" class="button" v-if="fullscreen" @click="exitFullscreen">
+        <button
+          title="click to exit fullscreen"
+          class="button"
+          v-if="fullscreen"
+          @click="exitFullscreen"
+        >
           <ShrinkScreen24 />
         </button>
       </div>
 
       <!-- Slider Content -->
-      <div class="slider" :style="{ transform: `translateX(-${(100 / steps.length) * currentStep}%)` }">
-        <div class="slide" style="width: 100%; overflow-x: auto">
+      <div
+        class="slider"
+        :style="{ transform: `translateX(-${(100 / steps.length) * currentStep}%)` }"
+      >
+        <div
+          class="slide"
+          style="width: 100%; overflow-x: auto"
+        >
           <Part
             v-show="currentStep === 0"
             :parts="pallets"
@@ -80,7 +106,10 @@
             :handlePartSelection="handlePalletSelection"
           />
         </div>
-        <div class="slide" style="width: 100%; overflow-x: auto">
+        <div
+          class="slide"
+          style="width: 100%; overflow-x: auto"
+        >
           <Part
             v-show="currentStep === 1"
             :parts="mattresses"
@@ -88,7 +117,10 @@
             :handlePartSelection="handleMattressSelection"
           />
         </div>
-        <div class="slide" style="width: 100%; overflow-x: auto">
+        <div
+          class="slide"
+          style="width: 100%; overflow-x: auto"
+        >
           <Part
             v-show="currentStep === 2"
             :parts="pillows"
@@ -515,23 +547,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 [v-cloak] {
   display: none;
 }
 
 #sofa-configurator-app {
   display: grid;
-  /* gap: 32px; */
+  /* grid-template-rows: 10svh 50svh 20svh; */
+  grid-template-rows: auto 1fr auto;
+  align-content: space-between;
   border-radius: 12px;
-  /* background-color: #fff; */
   position: relative;
   padding: 1rem;
   border: 1px solid;
   margin: 1rem;
   font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
   height: calc(100svh - 2rem);
-  grid-template-rows: min-content;
 }
 
 .sca__selected {
@@ -572,16 +604,18 @@ export default {
   position: relative;
   height: 100%;
   display: grid;
-  place-content: center;
+  /* place-content: center; */
+  justify-items: center;
+  align-items: center;
 }
 
 .sca__controls {
-  /* border-radius: 12px; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  /* gap: 32px; */
   width: 100%;
+  /* justify-content: flex-end; */
 }
 
 .sca__preview {
@@ -602,6 +636,7 @@ export default {
   background-size: cover;
   font-style: italic;
   shape-margin: 1rem;
+  position: absolute;
 }
 
 .sca__controls-options {
@@ -618,9 +653,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 767px) {
-
-}
+@media only screen and (max-width: 767px) {}
 
 #sofa-configurator-app:fullscreen .sca__controls-options {
   top: 2rem;
@@ -629,7 +662,8 @@ export default {
 
 .slider {
   display: flex;
-  width: 300%; /* Adjust the width based on the number of steps */
+  width: 300%;
+  /* Adjust the width based on the number of steps */
   transition: transform 0.5s ease;
 }
 
@@ -651,20 +685,25 @@ export default {
 }
 
 .slide::-webkit-scrollbar {
-  width: 12px; /* width of the scrollbar */
+  width: 12px;
+  /* width of the scrollbar */
 }
 
 .slide::-webkit-scrollbar-track {
-  background: #f1f1f1; /* color of the track */
+  background: #f1f1f1;
+  /* color of the track */
 }
 
 .slide::-webkit-scrollbar-thumb {
-  background: #ccc; /* color of the thumb */
-  border-radius: 6px; /* rounded corners of the thumb */
+  background: #ccc;
+  /* color of the thumb */
+  border-radius: 6px;
+  /* rounded corners of the thumb */
 }
 
 .slide::-webkit-scrollbar-thumb:hover {
-  background: #555; /* color of the thumb on hover */
+  background: #555;
+  /* color of the thumb on hover */
 }
 
 #sofa-configurator-app button {
@@ -690,6 +729,7 @@ export default {
 }
 
 @media print {
+
   .sca__controls,
   .sca__controls-options {
     display: none !important;
