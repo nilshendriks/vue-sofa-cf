@@ -1,22 +1,56 @@
 <template>
   <div
     id="sofa-configurator-app"
+    class="sofa-configurator"
     v-cloak
   >
-    <div class="sca__selected">
-      <dl>
-        <dt>Selected Pallet</dt>
-        <dd>{{ selectedPallet.longName }}</dd>
-      </dl>
-      <dl>
-        <dt>Selected Mattress</dt>
-        <dd>{{ selectedMattress.longName }}</dd>
-      </dl>
-      <dl>
-        <dt>Selected Pillow</dt>
-        <dd>{{ selectedPillow.longName }}</dd>
-      </dl>
-    </div>
+    <header class="sofa-configurator__header">
+      <div class="sofa-configurator__action-bar">
+        <button
+          title="click to see fullscreen"
+          class="sofa-configurator__button"
+          v-if="!fullscreen"
+          @click="toggleFullscreen"
+        >+
+          <!-- <FitToScreen24 /> -->
+        </button>
+        <button
+          title="click to exit fullscreen"
+          class="sofa-configurator__button"
+          v-if="fullscreen"
+          @click="exitFullscreen"
+        >-
+          <!-- <ShrinkScreen24 /> -->
+        </button>
+        <button
+          id="btn-print"
+          title="click to Print"
+          v-if="!fullscreen"
+          class="sofa-configurator__button"
+          @click="printConfig"
+        >
+          <!-- <Printer24 /> -->
+          <Printer16 />
+        </button>
+      </div>
+      <h1 class="sofa-configurator__title">Sofa Configurator</h1>
+      <div
+        class="sca__selected sofa-configurator__selected-items-bar"
+      >
+        <dl class="sofa-configurator__selected-item">
+          <dt>Pallet Colour</dt>
+          <dd>{{ selectedPallet.longName }}</dd>
+        </dl>
+        <dl class="sofa-configurator__selected-item">
+          <dt>Mattress Colour</dt>
+          <dd>{{ selectedMattress.longName }}</dd>
+        </dl>
+        <dl class="sofa-configurator__selected-item">
+          <dt>Pillow Colour</dt>
+          <dd>{{ selectedPillow.longName }}</dd>
+        </dl>
+      </div>
+    </header>
     <div class="sca__preview">
       <div class="sca__image-container">
         <!-- <VueImgTest /> -->
@@ -69,7 +103,7 @@
           :disabled="currentStep === steps.length - 1"
         >Next</button>
       </div>
-      <div class="sca__controls-options">
+      <!-- <div class="sca__controls-options">
         <button
           id="btn-print"
           title="click to Print"
@@ -95,7 +129,7 @@
         >
           <ShrinkScreen24 />
         </button>
-      </div>
+      </div> -->
 
       <!-- Slider Content -->
       <div
@@ -143,6 +177,7 @@
 <script>
 // import VueImgTest from "./VueImgTest.vue";
 import { Printer24 } from "@carbon/icons-vue";
+import { Printer16 } from "@carbon/icons-vue";
 import { FitToScreen24 } from "@carbon/icons-vue";
 import { ShrinkScreen24 } from "@carbon/icons-vue";
 import Part from "./Part.vue";
@@ -154,6 +189,7 @@ export default {
     Printer24,
     FitToScreen24,
     ShrinkScreen24,
+    Printer16,
   },
   data() {
     return {
@@ -554,16 +590,95 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 [v-cloak] {
   display: none;
 }
 
-#sofa-configurator-app {
+.sofa-configurator {
   background-color: var(--color-background);
   color: var(--color-text);
   display: grid;
-  /* grid-template-rows: 10svh 50svh 20svh; */
+  grid-template-rows: auto 1fr auto;
+  align-content: space-between;
+  border-radius: 12px;
+  position: relative;
+  /* padding: 1rem; */
+  border: 1px solid;
+  margin: 1rem;
+  font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+  height: calc(100svh - 2rem);
+}
+
+.sofa-configurator__header {
+  /* margin: 0 -16px; */
+  /* padding: 0 16px 1em; */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  /* border-bottom: 1px solid var(--color-border-dark); */
+}
+
+.sofa-configurator__action-bar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+  padding: 0 8px;
+}
+
+.sofa-configurator__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  appearance: none;
+  background-color: var(--color-background);
+  /* background-color: var(--color-background-dark); */
+  /* background-color: var(--color-background-dark-mute); */
+  color: var(--color-text);
+  color: #fff;
+  /* border: 1px solid currentColor; */
+  border: 1px solid #000;
+  border-radius: 50%;
+  /* color: currentColor; */
+  padding: 0;
+  font-size: 1em;
+  line-height: 1.5;
+  aspect-ratio: 1/1;
+  height: 20px;
+  width: auto;
+}
+
+.sofa-configurator__button:hover {
+  color: var(--color-text);
+}
+
+.sofa-configurator__title {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 700;
+  /* border-bottom: 1px solid var(--color-border-dark); */
+  /* background-color: yellow; */
+}
+
+.sofa-configurator__selected-items-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-wrap: wrap;
+  height: min-content;
+  border-top: 1px solid var(--color-border-dark);
+  border-bottom: 1px solid var(--color-border-dark);
+  padding: 0 8px;
+}
+
+/* #sofa-configurator-app {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  display: grid;
   grid-template-rows: auto 1fr auto;
   align-content: space-between;
   border-radius: 12px;
@@ -573,9 +688,9 @@ export default {
   margin: 1rem;
   font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
   height: calc(100svh - 2rem);
-}
+} */
 
-.sca__selected {
+/* .sca__selected {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -584,19 +699,29 @@ export default {
   border-bottom: 1px solid var(--color-border-dark);
   margin: 0 -16px;
   padding: 0 16px 1em;
-}
+} */
 
 @media only screen and (min-width: 768px) {
-  .sca__selected {
+  .sofa-configurator__selected-items-bar {
     flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .sofa-configurator__selected-item dt {
+    padding-left: 8px;
+  }
+
+  .sofa-configurator__selected-item+.sofa-configurator__selected-item {
+    border-left: 1px solid var(--color-border-dark);
   }
 }
 
-.sca__selected dl {
+.sofa-configurator__selected-item {
   display: flex;
   gap: 8px;
-  flex: 1;
+  /* flex: 1; */
 }
+
 
 .sca__selected dl,
 .sca__selected dd {
@@ -652,17 +777,17 @@ export default {
   position: absolute;
 }
 
-.sca__controls-options {
+/* .sca__controls-options {
   position: absolute;
   top: 1rem;
   right: 1rem;
   display: flex;
   gap: 1rem;
-}
+} */
 
-#sofa-configurator-app:fullscreen .sca__controls-options {
-  top: 2rem;
-  right: 2rem;
+#sofa-configurator-app:fullscreen .sofa-configurator__action-bar {
+  /* top: 2rem;
+  right: 2rem; */
 }
 
 .slider {
@@ -675,11 +800,10 @@ export default {
 .sca__controls__bar {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  /* gap: 3rem; */
   justify-content: space-between;
   margin: 0 auto;
   width: 100%;
+  padding: 0 1em;
 }
 
 @media only screen and (min-width: 768px) {
@@ -711,11 +835,12 @@ export default {
   /* color of the thumb on hover */
 }
 
-#sofa-configurator-app button {
+/* #sofa-configurator-app button {
   font-family: inherit;
-}
+} */
 
 .button {
+  font-family: inherit;
   padding: 0.5rem 1rem;
   background-color: transparent;
   border: 1px solid currentColor;
@@ -728,15 +853,23 @@ export default {
 }
 
 @media (pointer: coarse) {
-  .sca__controls-options {
+  /* .sca__controls-options {
+    display: none;
+  } */
+
+  .sofa-configurator__action-bar {
     display: none;
   }
 }
 
 @media print {
-
+/*
   .sca__controls,
   .sca__controls-options {
+    display: none !important;
+  } */
+
+  .sofa-configurator__action-bar {
     display: none !important;
   }
 }
